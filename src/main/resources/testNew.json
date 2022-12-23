@@ -1,0 +1,65 @@
+{
+  "name": "Students",
+  "student": [
+    {
+      "name": "Michael",
+      "surname": "Tyson",
+      "patronymic": "Tyson",
+      "studentID": "234",
+      "faculty": "Automobile",
+      "group": "A_12",
+      "tuitionBalance": 300,
+      "scores": [
+        {
+          "math": 1,
+          "ukrM": 2,
+          "ukrH": 3
+        }]
+    },
+    {
+      "name": "Oleksandr",
+      "surname": "Usyk",
+      "patronymic": "Oleksandrovych",
+      "studentID": "345",
+      "faculty": "Automobile",
+      "group": "A_11",
+      "tuitionBalance": 0,
+      "scores": [
+        {
+          "math": 1,
+          "ukrM": 2,
+          "ukrH": 3
+        }]
+    },
+    {
+      "name": "Kiril",
+      "surname": "Kirilov",
+      "patronymic": "Kirilovich",
+      "studentID": "456",
+      "faculty": "Road_Building",
+      "group": "R_12",
+      "tuitionBalance": 200,
+      "scores": [
+        {
+          "math": 1,
+          "ukrM": 2,
+          "ukrH": 3
+        }]
+    },
+    {
+      "name": "Oleksandr",
+      "surname": "Gvozdyk",
+      "patronymic": "Serhiyovych",
+      "studentID": "777",
+      "faculty": "Road_Building",
+      "group": "R_11",
+      "tuitionBalance": 100,
+      "scores": [
+        {
+          "math": 4,
+          "ukrM": 3,
+          "ukrH": 5
+        }]
+    }
+  ]
+}

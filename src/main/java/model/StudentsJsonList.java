@@ -4,10 +4,12 @@ import model.Student;
 
 import java.util.List;
 
-public class StudentsJsonList {
+public class StudentsJsonList{
 
     private String name;
     private List<Student> students;
+
+
 
     public String getName() {
         return name;

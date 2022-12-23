@@ -1,9 +1,6 @@
 package org.example;
 
 import controller.StudentController;
-import dataSource.StudentDataSource;
-import model.Faculty;
-import model.Student;
 
 import java.io.IOException;
 
