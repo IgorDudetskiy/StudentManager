@@ -9,10 +9,9 @@ public class Output {
     public Output(StudentController studentController){this.studentController = studentController;}
 
     public void printTotalStudent() {
-        String message = String.format("Total students: %.2f", studentController.calculateTotalStudent());
-        System.out.println(message);
+        System.out.println("Total students in list: "+ studentController.calculateTotalStudent());
     }
-    public void printInfoStudent() throws IOException {
+    public void printInfoStudent() {
         studentController.printInfo();
     }
 

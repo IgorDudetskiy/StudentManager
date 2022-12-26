@@ -2,48 +2,52 @@ package model;
 
 public class Score {
     private int math;
-    private int ukrM;
-    private int ukrH;
+    private int ukrainianLanguage;
+    private int historyOfUkraine;
 
     public Score(int math1, int ukrM1, int ukrH1) {
         math = math1;
-        ukrM = ukrM1;
-        ukrH = ukrH1;
+        ukrainianLanguage = ukrM1;
+        historyOfUkraine = ukrH1;
     }
 
     public Score() {
     }
 
+
     public int getMath() {
         return math;
     }
 
-    public void setMath(int math1) {
-        math = math1;
+    public void setMath(int math) {
+        this.math = math;
     }
 
-    public int getUkrM() {
-        return ukrM;
+    public int getUkrainianLanguage() {
+        return ukrainianLanguage;
     }
 
-    public void setUkrM(int ukrM1) {
-        ukrM = ukrM1;
+    public void setUkrainianLanguage(int ukrainianLanguage) {
+        this.ukrainianLanguage = ukrainianLanguage;
     }
 
-    public int getUkrH() {
-        return ukrH;
+    public int getHistoryOfUkraine() {
+        return historyOfUkraine;
     }
 
-    public void setUkrH(int ukrH1) {
-        ukrH = ukrH1;
+    public void setHistoryOfUkraine(int historyOfUkraine) {
+        this.historyOfUkraine = historyOfUkraine;
     }
 
     @Override
     public String toString() {
         return "Score{" +
-                "Math=" + math +
-                ", UkrM=" + ukrM +
-                ", UkrH=" + ukrH +
+                "math=" + math +
+                ", ukrainianLanguage=" + ukrainianLanguage +
+                ", historyOfUkraine=" + historyOfUkraine +
                 '}';
+    }
+    public int getColumnCount() {
+        return getClass().getDeclaredFields().length;
     }
 }

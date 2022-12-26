@@ -14,7 +14,7 @@ import java.util.List;
 public class StudentDataSourceScore {
 
     ObjectMapper mapper = new ObjectMapper();
-    StudentsJsonList studentsJsonList = mapper.readValue(new File("src/main/resources/testNew.json"), StudentsJsonList.class);
+    StudentsJsonList studentsJsonList = mapper.readValue(new File("src/main/resources/StudentList.json"), StudentsJsonList.class);
     private final List<Student> students = studentsJsonList.getStudent();
     private final ArrayList<Student> listStudents = new ArrayList<>();
 
@@ -24,6 +24,8 @@ public class StudentDataSourceScore {
 
     public void initialData() {
         listStudents.addAll(students);
+
+
     }
 
 

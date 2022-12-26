@@ -12,7 +12,7 @@ import java.io.IOException;
 public class JsonJackson {
     public static void main(String[] args) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
-        StudentsJsonList studentsJsonList = mapper.readValue(new File("src/main/resources/testNew.json"), StudentsJsonList.class);
+        StudentsJsonList studentsJsonList = mapper.readValue(new File("src/main/resources/StudentList.json"), StudentsJsonList.class);
         System.out.println(studentsJsonList.getStudent());
 
     }

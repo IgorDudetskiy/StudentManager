@@ -12,8 +12,8 @@
       "scores": [
         {
           "math": 1,
-          "ukrM": 2,
-          "ukrH": 3
+          "ukrainianLanguage": 5,
+          "historyOfUkraine": 3
         }]
     },
     {
@@ -27,8 +27,8 @@
       "scores": [
         {
           "math": 1,
-          "ukrM": 2,
-          "ukrH": 3
+          "ukrainianLanguage": 2,
+          "historyOfUkraine": 3
         }]
     },
     {
@@ -42,8 +42,8 @@
       "scores": [
         {
           "math": 1,
-          "ukrM": 2,
-          "ukrH": 3
+          "ukrainianLanguage": 2,
+          "historyOfUkraine": 4
         }]
     },
     {
@@ -57,8 +57,8 @@
       "scores": [
         {
           "math": 4,
-          "ukrM": 3,
-          "ukrH": 5
+          "ukrainianLanguage": 3,
+          "historyOfUkraine": 5
         }]
     }
   ]
