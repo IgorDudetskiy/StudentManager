@@ -1,5 +1,6 @@
 package controller;
 
+import com.sun.jdi.event.ExceptionEvent;
 import dataSource.ScheduleDataSource;
 import dataSource.StudentDataSourceScore;
 import model.*;
@@ -13,137 +14,142 @@ import java.util.stream.Stream;
 public class StudentController {
     private static StudentDataSourceScore studentDataSourceScore;
     private static ScheduleDataSource scheduleDataSource;
+    private static Score score;
 
 
-    public StudentController(StudentDataSourceScore studentDataSourceScore, ScheduleDataSource scheduleDataSource) {
+    public StudentController(StudentDataSourceScore studentDataSourceScore, ScheduleDataSource scheduleDataSource, Score score) {
         StudentController.studentDataSourceScore = studentDataSourceScore;
         StudentController.scheduleDataSource = scheduleDataSource;
-
+        StudentController.score = score;
     }
 
-    public int calculateTotalStudent() {
-        int totalStudents = 0;
-        for (Student ignored : studentDataSourceScore.getStudent()) {
-            totalStudents++;
-        }
-        return totalStudents;
-    }
-
-    public void infoAboutStudent() {
+    public String checkId() {
         try {
             BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-            System.out.println("Enter id for get information about student: ");
+            System.out.println("Enter id: ");
             String id = br.readLine();
+            checkStudent(id);
+            return id;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public Student checkStudent(String id) {
+        List<String> stringList = new ArrayList<>();
+        for (Student s : studentDataSourceScore.getStudent()) {
+            stringList.add(s.getStudentID());
+        }
+        if (stringList.contains(id)) {
             for (Student student : studentDataSourceScore.getStudent()) {
                 if (id.equals(student.getStudentID())) {
-                    System.out.println("Your student: " + student);
-                    checkFaculty(student);
+                    infoAboutStudent(student);
+                    return student;
                 }
             }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        } else {
+            System.out.println("Error. Try else");
+            checkId();
         }
+        return null;
     }
 
-    public void checkFaculty(Student student) {
-        try {
-            for (Faculty f : Faculty.values()) {
-                if (Objects.equals(student.getFaculty(), f.getFaculty())) {
-                    System.out.println(student.getSurname() + " has the right faculty " + student.getFaculty());
-                    checkGroup(student);
-                    checkSchedule(student.getGroup());
-                    break;
-                }
-            }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+    public Student infoAboutStudent(Student student) {
+        System.out.println("Your student: " + student);
+        checkFaculty(student);
+        viewBalance(student);
+        payTuition(student);
+        checkScholarship(student);
+        return student;
     }
 
 
-    public void checkGroup(Student student) throws IOException {
+    public Student checkFaculty(Student student) {
+        for (Faculty f : Faculty.values()) {
+            if (Objects.equals(student.getFaculty(), f.getFaculty())) {
+                System.out.println(student.getSurname() + " has the right faculty " + student.getFaculty());
+                checkGroup(student);
+                checkSchedule(student.getGroup());
+                break;
+            }
+        }
+        return student;
+    }
+
+
+    public Student checkGroup(Student student) {
         for (Group g : Group.values()) {
             Stream<Student> studentStream = Stream.of(student);
             studentStream.filter(
                     student1 -> Objects.equals(student.getGroup(), g.getGroup())).forEach(student1 ->
                     System.out.println(student.getSurname() + " has the right group " + student.getGroup()));
         }
+        return student;
     }
-    public void checkSchedule(String gr) {
+
+
+    public double calculateTotalStudent() {
+        double totalStudents = 0;
+        for (Student ignored : studentDataSourceScore.getStudent()) {
+            totalStudents++;
+        }
+        return totalStudents;
+    }
+
+    public Student viewBalance(Student student) {
+        System.out.println("Your tuition balance: " + student.getTuitionBalance());
+
+        return student;
+    }
+
+    public void payTuition(Student student) {
+        try {
+            BufferedReader brr = new BufferedReader(new InputStreamReader(System.in));
+            System.out.println("Enter your payment ₴: ");
+            String secondValue = brr.readLine();
+            double payment = Integer.parseInt(secondValue);
+            if (payment <= 0) {
+                throw new ArithmeticException();
+            }
+            student.setTuitionBalance(student.getTuitionBalance() + (int) payment);
+            System.out.println("thank you for your payment of $" + payment);
+        } catch (NumberFormatException | ArithmeticException e) {
+            System.out.println("You enter wrong value. Try else: ");
+            payTuition(student);
+        }  catch (IOException e) {
+            System.out.println("IOException");
+        }
+
+    }
+
+
+    public Student checkScholarship(Student student) {
+        final int allowableScore = 4;
+        for (Score score : student.getScores()) {
+            System.out.println("Your average score: ");
+            System.out.println("Score math: " + score.getMath());
+            System.out.println("Score Ukrainian language: " + score.getUkrainianLanguage());
+            System.out.println("Score History Of Ukraine: " + score.getHistoryOfUkraine());
+            double averageScore = ((double) score.getMath() + score.getUkrainianLanguage() + score.getHistoryOfUkraine()) / 4;
+            if (averageScore >= allowableScore) {
+                System.out.println(averageScore + " is greater or equal than " + allowableScore + " is good");
+            } else {
+                System.out.println(averageScore + " is less than " + allowableScore + " is bad");
+            }
+        }
+        return student;
+    }
+
+    public String checkSchedule(String group) {
         for (Schedule schedule : scheduleDataSource.getSchedules()) {
-            switch (gr) {
+            switch (group) {
                 case "A_11" -> System.out.println("A_11: " + schedule.getTAG_A_11());
                 case "A_12" -> System.out.println("A_12: " + schedule.getTAG_A_12());
                 case "R_11" -> System.out.println("R_11: " + schedule.getTAG_R_11());
                 case "R_12" -> System.out.println("R_12: " + schedule.getTAG_R_12());
             }
         }
-    }
-
-
-    public void viewBalance() {
-        try {
-            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-            System.out.println("Enter studentID for view balance: ");
-            String id = br.readLine();
-            for (Student student : studentDataSourceScore.getStudent()) {
-                if (id.equals(student.getStudentID())) {
-                    System.out.println("Your tuition balance: " + student.getTuitionBalance());
-                    payTuition(id);
-                }
-            }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public void payTuition(String id) throws IOException {
-        for (Student student : studentDataSourceScore.getStudent()) {
-            if (id.equals(student.getStudentID())) {
-                BufferedReader brr = new BufferedReader(new InputStreamReader(System.in));
-                System.out.println("Enter tuition fee ₴: ");
-                int payment = Integer.parseInt(brr.readLine());
-                student.setTuitionBalance(student.getTuitionBalance() + payment);
-                System.out.println("thank you for your payment of ₴" + payment);
-                System.out.println("Your balance: ₴" + student.getTuitionBalance());
-            }
-        }
-    }
-
-
-
-    public void checkScholarship() {
-        final int allowableScore = 4;
-        try {
-            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-            System.out.println("Enter studentID for view your average score: ");
-            String id = br.readLine();
-            for (Student student : studentDataSourceScore.getStudent()) {
-                for (Score score : student.getScores()) {
-                    if (id.equals(student.getStudentID())) {
-                        System.out.println("Score Mathematics: " + score.getMath());
-                        System.out.println("Score Ukrainian language: " + score.getUkrainianLanguage());
-                        System.out.println("Score History of Ukraine: " + score.getHistoryOfUkraine());
-                        double averageScore = ((double) score.getMath() + score.getUkrainianLanguage()
-                                + score.getHistoryOfUkraine()) / score.getColumnCount();
-                        String message = String.format("Average Score: %.2f ", averageScore);
-                        if (averageScore >= allowableScore) {
-                            System.out.println(message + " is greater or equal than " + allowableScore + ". This is good");
-                        } else {
-                            System.out.println(message + " is less than " + allowableScore + ". This is bad");
-                        }
-                    }
-                }
-            }
-        } catch (IOException ex) {
-            throw new RuntimeException(ex);
-        }
-    }
-
-    public void printInfo() {
-        infoAboutStudent();
-        viewBalance();
-        checkScholarship();
+        return group;
     }
 }
 

@@ -11,8 +11,8 @@
       "tuitionBalance": 300,
       "scores": [
         {
-          "math": 1,
-          "ukrainianLanguage": 5,
+          "math": 3,
+          "ukrainianLanguage": 4,
           "historyOfUkraine": 3
         }]
     },
@@ -26,8 +26,8 @@
       "tuitionBalance": 0,
       "scores": [
         {
-          "math": 1,
-          "ukrainianLanguage": 2,
+          "math": 4,
+          "ukrainianLanguage": 4,
           "historyOfUkraine": 3
         }]
     },
@@ -41,8 +41,8 @@
       "tuitionBalance": 200,
       "scores": [
         {
-          "math": 1,
-          "ukrainianLanguage": 2,
+          "math": 4,
+          "ukrainianLanguage": 5,
           "historyOfUkraine": 4
         }]
     },
@@ -57,7 +57,7 @@
       "scores": [
         {
           "math": 4,
-          "ukrainianLanguage": 3,
+          "ukrainianLanguage": 4,
           "historyOfUkraine": 5
         }]
     }

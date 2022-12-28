@@ -12,7 +12,7 @@ public class Output {
         System.out.println("Total students in list: "+ studentController.calculateTotalStudent());
     }
     public void printInfoStudent() {
-        studentController.printInfo();
+        studentController.checkId();
     }
 
 }

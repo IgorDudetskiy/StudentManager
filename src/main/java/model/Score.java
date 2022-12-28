@@ -5,10 +5,10 @@ public class Score {
     private int ukrainianLanguage;
     private int historyOfUkraine;
 
-    public Score(int math1, int ukrM1, int ukrH1) {
-        math = math1;
-        ukrainianLanguage = ukrM1;
-        historyOfUkraine = ukrH1;
+    public Score(int math1, int ukrM, int ukrH) {
+        math = math;
+        ukrainianLanguage = ukrM;
+        historyOfUkraine = ukrH;
     }
 
     public Score() {
