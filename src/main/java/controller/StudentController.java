@@ -101,8 +101,9 @@ public class StudentController {
 
         return student;
     }
+    public void hello(){}
 
-    public Student payTuition(Student student) {
+    public void payTuition(Student student) {
         try {
             BufferedReader brr = new BufferedReader(new InputStreamReader(System.in));
             System.out.println("Enter your payment ₴: ");
@@ -119,7 +120,6 @@ public class StudentController {
         }  catch (IOException e) {
             System.out.println("IOException");
         }
-        return student;
 
     }
 
