@@ -58,7 +58,7 @@ public class StudentController {
         System.out.println("Your student: " + student);
         checkFaculty(student);
         viewBalance(student);
-        payTuition(student);
+        readTuition(student);
         checkScholarship(student);
         return student;
     }
@@ -102,28 +102,37 @@ public class StudentController {
         return student;
     }
 
-    public void payTuition(Student student) {
+    public String readTuition(Student student) {
         try {
             BufferedReader brr = new BufferedReader(new InputStreamReader(System.in));
             System.out.println("Enter your payment ₴: ");
             String secondValue = brr.readLine();
-            double payment = Integer.parseInt(secondValue);
+            checkTuition(student, secondValue);
+            return secondValue;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public double checkTuition(Student student,String value) {
+        try {
+            double payment = Integer.parseInt(value);
             if (payment <= 0) {
                 throw new ArithmeticException();
             }
             printTuition(student,payment);
         } catch (NumberFormatException | ArithmeticException e) {
             System.out.println("You enter wrong value. Try else: ");
-            payTuition(student);
-        }  catch (IOException e) {
-            System.out.println("IOException");
+            readTuition(student);
         }
 
+        return 0;
     }
-    public void printTuition(Student student,double payment){
+    public Student printTuition(Student student,double payment){
         student.setTuitionBalance(student.getTuitionBalance() + (int) payment);
         System.out.println("thank you for your payment of $" + payment);
         System.out.println(student.getSurname()+" Your new balance: $"+student.getTuitionBalance());
+        return student;
     }
 
 
