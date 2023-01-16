@@ -101,7 +101,6 @@ public class StudentController {
 
         return student;
     }
-    public void hello(){}
 
     public void payTuition(Student student) {
         try {
@@ -112,8 +111,7 @@ public class StudentController {
             if (payment <= 0) {
                 throw new ArithmeticException();
             }
-            student.setTuitionBalance(student.getTuitionBalance() + (int) payment);
-            System.out.println("thank you for your payment of $" + payment);
+            printTuition(student,payment);
         } catch (NumberFormatException | ArithmeticException e) {
             System.out.println("You enter wrong value. Try else: ");
             payTuition(student);
@@ -121,6 +119,11 @@ public class StudentController {
             System.out.println("IOException");
         }
 
+    }
+    public void printTuition(Student student,double payment){
+        student.setTuitionBalance(student.getTuitionBalance() + (int) payment);
+        System.out.println("thank you for your payment of $" + payment);
+        System.out.println(student.getSurname()+" Your new balance: $"+student.getTuitionBalance());
     }
 
 
